@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Fruit Validation</title>
+<style>
+    body{
+        background-image: url('bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;
+        
+    }
+    form {
+        max-width: 100%;
+        max-height: 100%;
+        font: 1em sans-serif;
+        width: 500px;
+        margin: 100px auto;
+        padding: 3%;
+    }
+
+    label {
+        display: block;
+        color: white;
+        padding-top: 10px;
+    }
+    input{
+        border-radius: 2px 2px 2px 2px;
+    }
+    .alert{
+        font-size: 10px;
+        color: rgb(226, 55, 55);
+        margin-bottom: 2px;
+        padding: 0;
+    }
+    button{
+        margin-top:10px;
+        margin-bottom: 5px;
+    }
+
+    .rgba-gradient {
+    background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(133, 15, 144, 0.4) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(0, 0, 0, 0.7), rgba(133, 15, 144, 0.4) 100%));
+    background: linear-gradient(to 45deg, rgba(0, 0, 0, 0.7), rgba(133, 15, 144, 0.4) 100%);
+}
+    
+</style>
+</head>
+
+<body>
+    <form class="rgba-gradient">
+        <div class="md-form">
+            <i class="fas fa-envelope prefix white-text active"></i>
+            <label for="email" title="This field is required" class="active">Enter Email*<label>
+            <input id="email" name="emailAdress" type="email" placeholder = "Your email" required>
+            <p id="emailAlert" class="alert"></p>
+        </div>
+
+        <div class="md-form">
+            <label for="emailConfirmation" title="This field is required">Confirm Email*</label>
+            <input onclick="emailFunction()" id="emailConfirmation" name="emailValidation" type="email" placeholder = "Confirm email"required>
+            <p id="emailConfirmationAlert" class="alert"></p>
+        </div>
+
+        <div class="md-form">
+            <label for="country">Enter Country</label>
+            <select onclick="emailConfirmationFunction()">
+                <option selected disabled>Cameroon</option>
+                <option>Ghana</option>
+                <option>Nigeria</option>
+                <option>Rwanda</option>
+                <option>Tanzania</option>
+            </select>
+        </div>
+
+        <div class="md-form">
+            <label for="zip" title="This field is required">Zip*</label>
+            <input id="zip" name="zipcode" type="number" placeholder="00xxx" required>
+        </div>
+
+        <div class="md-form">
+            <label for="password" title="should be atleast 8 characters">Password*</label>
+            <input id="password" name="pwd" type="password" pattern="{8,}"  required>
+        </div>
+
+        <div class="md-form">
+            <label for="confirmpassword" title="should be atleast 8 characters">Confirm Password*</label>
+            <input id="confirmpassword" name="confirmpwd" type="password" max="" min="8" required>
+        </div>
+
+        <div class="md-form">
+            <button>Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function emailFunction() {
+            var input = document.getElementById("email");
+            if (!input.checkValidity()) {
+            document.getElementById("email").style = "box-shadow: 0 0 5px 1px red";
+            document.getElementById("emailAlert").innerHTML = input.validationMessage;
+            } else {
+            document.getElementById("emailAlert").innerHTML = "High Five!";
+            } 
+        } 
+
+        function emailConfirmationFunction() {
+            var input = document.getElementById("emailConfirmation");
+            if (!input.checkValidity()) {
+            document.getElementById("emailConfirmation").style = "box-shadow: 0 0 5px 1px red";
+            document.getElementById("emailConfirmationAlert").innerHTML = input.validationMessage;
+            } else {
+            document.getElementById("emailAlert").innerHTML = "High Five!";
+            } 
+        } 
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
