@@ -126,19 +126,20 @@
         var eConfirmation = document.getElementById("emailConfirmation");
         function emailConfirmationFunction() {
             if (!eConfirmation.checkValidity()) {
-            document.getElementById("emailConfirmation").style = "box-shadow: 0 0 5px 1px red";
-            document.getElementById("emailConfirmationAlert").innerHTML = eConfirmation.validationMessage;
-            return false
+                document.getElementById("emailConfirmation").style = "box-shadow: 0 0 5px 1px red";
+                document.getElementById("emailConfirmationAlert").innerHTML = eConfirmation.validationMessage;
+                return false
             } else if(email.value != eConfirmation.value){
-            document.getElementById("emailConfirmationAlert").innerHTML = "Emails don't match love!";
-            return false
+                document.getElementById("emailConfirmation").style = "box-shadow: 0 0 5px 1px red";
+                document.getElementById("emailConfirmationAlert").innerHTML = "Emails don't match love!";
+                return false
             } else return true
         } 
         //Password validity check [6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter]
-        var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         var password = document.getElementById("password");
         function CheckPassword() { 
-            if(password.value.match(passw)) { 
+            if(password.value.match(passwordRegex)) { 
                 document.getElementById("passwordAlert").innerHTML = "Yes!";
                 return true
             }else { 
@@ -171,7 +172,7 @@
                 finalAlert.innerHTML = "Validation incomplete, check error messages above";
                 e.preventDefault();
             }
-});
+        });
 
 
     </script>
