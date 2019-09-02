@@ -8,11 +8,15 @@
 <style>
     body{
         background-image: url('bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;
+        margin: 0 auto;
+        padding: 0;
+        height: 100%;
+        width: 100%;
         
     }
     form {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
         font: 1em sans-serif;
         width: 500px;
         margin: 100px auto;
@@ -33,7 +37,18 @@
         margin-bottom: 2px;
         padding: 0;
     }
+    .pwdInfo{
+        padding: 0;
+        margin-top: 15px;
+        margin-bottom: 0;
+        color: white;
+        font-size: 10px;
+    }
     button{
+        margin-top:10px;
+        margin-bottom: 5px;
+    }
+    #finalAlert{
         margin-top:10px;
         margin-bottom: 5px;
     }
@@ -48,7 +63,7 @@
 </head>
 
 <body>
-    <form class="rgba-gradient">
+    <form class="rgba-gradient" id="form">
         <div class="md-form">
             <i class="fas fa-envelope prefix white-text active"></i>
             <label for="email" title="This field is required" class="active">Enter Email*<label>
@@ -62,9 +77,9 @@
             <p id="emailConfirmationAlert" class="alert"></p>
         </div>
 
-        <div class="md-form">
+        <div class="md-form" onclick="emailConfirmationFunction()">
             <label for="country">Enter Country</label>
-            <select onclick="emailConfirmationFunction()">
+            <select>
                 <option selected disabled>Cameroon</option>
                 <option>Ghana</option>
                 <option>Nigeria</option>
@@ -79,40 +94,86 @@
         </div>
 
         <div class="md-form">
+            <p class="pwdInfo"> Password Should have 6 to 20 characters, atleast 1 numeric digit,1 uppercase and 1 lowercase letter</p>
             <label for="password" title="should be atleast 8 characters">Password*</label>
-            <input id="password" name="pwd" type="password" pattern="{8,}"  required>
+            <input id="password" name="pwd" type="password" required>
+            <p id="passwordAlert" class="alert"></p>
         </div>
 
-        <div class="md-form">
+        <div class="md-form" onclick="CheckPassword()">
             <label for="confirmpassword" title="should be atleast 8 characters">Confirm Password*</label>
             <input id="confirmpassword" name="confirmpwd" type="password" max="" min="8" required>
+            <p id="passwordConfirmationAlert" class="alert"></p>
         </div>
 
-        <div class="md-form">
+        <div class="md-form" onclick="CheckPasswordConfirmation()">
             <button>Submit</button>
         </div>
+        <p id="finalAlert" class="alert"></p>
     </form>
 
     <script>
+        //email validation check
+        var email = document.getElementById("email");
         function emailFunction() {
-            var input = document.getElementById("email");
-            if (!input.checkValidity()) {
+            if (!email.checkValidity()) {
             document.getElementById("email").style = "box-shadow: 0 0 5px 1px red";
-            document.getElementById("emailAlert").innerHTML = input.validationMessage;
-            } else {
-            document.getElementById("emailAlert").innerHTML = "High Five!";
-            } 
+            document.getElementById("emailAlert").innerHTML = email.validationMessage;
+            }
         } 
 
+        //email confirmation check
+        var eConfirmation = document.getElementById("emailConfirmation");
         function emailConfirmationFunction() {
-            var input = document.getElementById("emailConfirmation");
-            if (!input.checkValidity()) {
+            if (!eConfirmation.checkValidity()) {
             document.getElementById("emailConfirmation").style = "box-shadow: 0 0 5px 1px red";
-            document.getElementById("emailConfirmationAlert").innerHTML = input.validationMessage;
-            } else {
-            document.getElementById("emailAlert").innerHTML = "High Five!";
-            } 
+            document.getElementById("emailConfirmationAlert").innerHTML = eConfirmation.validationMessage;
+            return false
+            } else if(email.value != eConfirmation.value){
+            document.getElementById("emailConfirmationAlert").innerHTML = "Emails don't match love!";
+            return false
+            } else return true
         } 
+        //Password validity check [6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter]
+        var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        var password = document.getElementById("password");
+        function CheckPassword() { 
+            if(password.value.match(passw)) { 
+                document.getElementById("passwordAlert").innerHTML = "Yes!";
+                return true
+            }else { 
+                document.getElementById("password").style = "box-shadow: 0 0 5px 1px red";
+                document.getElementById("passwordAlert").innerHTML = "follow the instruction darling!";
+                return false
+            }
+        }
+        //Password Confirmation validity check 
+        function CheckPasswordConfirmation() { 
+            var pConfirmation = document.getElementById("confirmpassword");
+            if(pConfirmation.value == password.value) { 
+                document.getElementById("passwordConfirmationAlert").innerHTML = "Sweet!";
+                return true
+            }else { 
+                document.getElementById("cofirmPassword").style = "box-shadow: 0 0 5px 1px red";
+                document.getElementById("passwordConfirmationAlert").innerHTML = "passwords don't match!";
+                return false
+            }
+        }
+
+        //Overall validation check
+        const form = document.querySelector("#form");
+        form.addEventListener("submit", e => {
+            if(email.checkValidity() && emailConfirmationFunction()==true && CheckPassword()== true && CheckPasswordConfirmation()==true){
+                const finalAlert = document.querySelector("#finalAlert");
+                finalAlert.innerHTML = "High Five, Good Job!";
+                e.preventDefault();
+            }else {
+                finalAlert.innerHTML = "Validation incomplete, check error messages above";
+                e.preventDefault();
+            }
+});
+
+
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
